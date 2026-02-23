@@ -1,1 +1,1 @@
-export { formatCPF, formatCNPJ, formatCpfCnpj } from "./v1";
+export { formatCPF, formatCNPJ, formatCpfCnpj, anonymizeCPF, anonymizeCNPJ, anonymizeCpfCnpj } from "./v1";
