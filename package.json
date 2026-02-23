@@ -1,6 +1,6 @@
 {
   "name": "cpf-cnpj-alpha",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Formatadores de CPF/CNPJ em TypeScript com suporte a CNPJ alfanumérico.",
   "type": "module",
   "main": "./dist/index.cjs",
