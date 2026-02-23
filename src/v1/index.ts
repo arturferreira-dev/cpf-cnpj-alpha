@@ -4,3 +4,6 @@ export { formatCpfCnpj } from "./cpfCnpj";
 export { anonymizeCPF } from "./anonymizeCPF";
 export { anonymizeCNPJ } from "./anonymizeCNPJ";
 export { anonymizeCpfCnpj } from "./anonymizeCpfCnpj";
+export { validateCPF } from "./validateCPF";
+export { validateCNPJ } from "./validateCNPJ";
+export { validateCpfCnpj } from "./validateCpfCnpj";

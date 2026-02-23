@@ -17,9 +17,12 @@ import {
   formatCpfCnpj,
   anonymizeCPF,
   anonymizeCNPJ,
-  anonymizeCpfCnpj
+  anonymizeCpfCnpj,
+  validateCPF,
+  validateCNPJ,
+  validateCpfCnpj
 } from "cpf-cnpj-alpha";
-import { formatCPF as formatCPFv1 } from "cpf-cnpj-alpha/v1";
+import { validateCPF as validateCPFv1 } from "cpf-cnpj-alpha/v1";
 ```
 
 ## API
@@ -60,6 +63,41 @@ Cada função recebe `string` e retorna `string` (tipado via arquivos `.d.ts` ge
 - 11 dígitos: anonimiza como CPF.
 - 14+ alfanuméricos: anonimiza como CNPJ.
 - Outros casos: retorna o valor original.
+
+### `validateCPF(value: string): boolean`
+- Valida CPF usando algoritmo de Módulo 11 (conforme Receita Federal).
+- Aceita com ou sem máscara (ex: `11144477735` ou `111.444.777-35`).
+- Rejeita sequências repetidas (111.111.111-11).
+- Retorna `true` se válido, `false` caso contrário.
+
+**Estrutura validada:**
+- 11 dígitos numéricos
+- 9 primeiros dígitos: número de registro
+- 2 últimos dígitos: dígitos verificadores (DV₁, DV₂)
+
+**Algoritmo:**
+- **DV₁**: Multiplica primeiros 9 dígitos por 10, 9, 8, ..., 2. Soma e calcula resto ÷ 11. Se resto < 2 → DV₁ = 0, senão DV₁ = 11 - resto.
+- **DV₂**: Multiplica primeiros 10 dígitos (com DV₁) por 11, 10, 9, ..., 2. Soma e calcula resto ÷ 11. Se resto < 2 → DV₂ = 0, senão DV₂ = 11 - resto.
+
+### `validateCNPJ(value: string): boolean`
+- Valida CNPJ numérico ou alfanumérico usando algoritmo de Módulo 11.
+- Aceita com ou sem máscara.
+- Rejeita letras proibidas: **I, O, U, Q, F** (conforme Receita Federal).
+- Retorna `true` se válido, `false` caso contrário.
+
+**Estrutura validada:**
+- **CNPJ Numérico**: 14 dígitos
+- **CNPJ Alfanumérico**: 12 caracteres alfanuméricos + 2 dígitos verificadores numéricos
+
+**Conversão de caracteres:**
+- Números: 0-9 mantêm seus valores
+- Letras: A=10, B=11, C=12, ..., Z=35 (conversão ASCII)
+
+### `validateCpfCnpj(value: string): boolean`
+- Detecta automaticamente se é CPF ou CNPJ e valida.
+- 11 dígitos → valida como CPF.
+- 14+ caracteres alfanuméricos → valida como CNPJ.
+- Outros tamanhos → retorna `false`.
 
 ## CNPJ alfanumérico
 
@@ -135,4 +173,48 @@ const formatted = formatCpfCnpj(userInput); // 123.456.789-01
 const anonymous = anonymizeCpfCnpj(formatted); // 123.***.***-01
 
 console.log(`Documento: ${anonymous}`); // Documento: 123.***.***-01
+```
+
+### Validação
+
+```ts
+import { validateCPF, validateCNPJ, validateCpfCnpj } from "cpf-cnpj-alpha";
+
+// CPF
+validateCPF("11144477735"); // true
+validateCPF("111.444.777-35"); // true (com máscara)
+validateCPF("12345678901"); // false (dígitos verificadores inválidos)
+validateCPF("11111111111"); // false (sequência repetida)
+
+// CNPJ numérico
+validateCNPJ("11222333000181"); // true
+validateCNPJ("11.222.333/0001-81"); // true (com máscara)
+validateCNPJ("12345678000199"); // false (inválido)
+
+// CNPJ alfanumérico
+validateCNPJ("AB12CD34EG5691"); // true (válido, sem letras proibidas)
+validateCNPJ("AI12CD34EG5691"); // false (contém letra proibida I)
+validateCNPJ("AF12CD34EG5691"); // false (contém letra proibida F)
+
+// Auto-detectar
+validateCpfCnpj("11144477735"); // true (CPF válido)
+validateCpfCnpj("AB12CD34EG5691"); // true (CNPJ alfanumérico válido)
+validateCpfCnpj("123"); // false (tamanho inválido)
+```
+
+### Fluxo com validação antes de formatar
+
+```ts
+import { validateCpfCnpj, formatCpfCnpj, anonymizeCpfCnpj } from "cpf-cnpj-alpha";
+
+const userInput = "11144477735";
+
+if (validateCpfCnpj(userInput)) {
+  const formatted = formatCpfCnpj(userInput);
+  const anonymous = anonymizeCpfCnpj(formatted);
+  console.log(`✓ Documento válido: ${anonymous}`);
+} else {
+  console.log(`✗ Documento inválido: ${userInput}`);
+}
+// Output: ✓ Documento válido: 111.***.***-35
 ```
