@@ -7,3 +7,5 @@ export { anonymizeCpfCnpj } from "./anonymizeCpfCnpj";
 export { validateCPF } from "./validateCPF";
 export { validateCNPJ } from "./validateCNPJ";
 export { validateCpfCnpj } from "./validateCpfCnpj";
+export { generateCPF } from "./generateCPF";
+export { generateCNPJ, generateCNPJAlpha } from "./generateCNPJ";

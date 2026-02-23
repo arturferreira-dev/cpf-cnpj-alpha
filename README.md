@@ -20,7 +20,10 @@ import {
   anonymizeCpfCnpj,
   validateCPF,
   validateCNPJ,
-  validateCpfCnpj
+  validateCpfCnpj,
+  generateCPF,
+  generateCNPJ,
+  generateCNPJAlpha
 } from "cpf-cnpj-alpha";
 import { validateCPF as validateCPFv1 } from "cpf-cnpj-alpha/v1";
 ```
@@ -98,6 +101,26 @@ Cada função recebe `string` e retorna `string` (tipado via arquivos `.d.ts` ge
 - 11 dígitos → valida como CPF.
 - 14+ caracteres alfanuméricos → valida como CNPJ.
 - Outros tamanhos → retorna `false`.
+
+### `generateCPF(formatted?: boolean): string`
+- Gera um CPF válido aleatoriamente com checksum correto.
+- 9 dígitos aleatórios + 2 dígitos verificadores calculados.
+- Se `formatted=true`, retorna com máscara (XXX.XXX.XXX-XX).
+- Se `formatted=false`, retorna apenas 11 dígitos.
+
+### `generateCNPJ(formatted?: boolean): string`
+- Gera um CNPJ numérico válido aleatoriamente com checksum correto.
+- 12 dígitos aleatórios + 2 dígitos verificadores calculados (14 dígitos totais).
+- Se `formatted=true`, retorna com máscara (XX.XXX.XXX/XXXX-XX).
+- Se `formatted=false`, retorna apenas 14 dígitos.
+
+### `generateCNPJAlpha(formatted?: boolean): string`
+- Gera um CNPJ alfanumérico válido aleatoriamente com checksum correto.
+- 12 caracteres alfanuméricos aleatórios + 2 dígitos verificadores numéricos (14 caracteres totais).
+- **Não utiliza letras proibidas** (I, O, U, Q, F) - conforme Receita Federal.
+- Caracteres permitidos: A-Z (exceto proibidas), 0-9.
+- Se `formatted=true`, retorna com máscara (XX.XXX.XXX/XXXX-XX).
+- Se `formatted=false`, retorna apenas 14 caracteres alfanuméricos.
 
 ## CNPJ alfanumérico
 
@@ -217,4 +240,50 @@ if (validateCpfCnpj(userInput)) {
   console.log(`✗ Documento inválido: ${userInput}`);
 }
 // Output: ✓ Documento válido: 111.***.***-35
+```
+
+### Geração
+
+```ts
+import { generateCPF, generateCNPJ, generateCNPJAlpha, validateCpfCnpj } from "cpf-cnpj-alpha";
+
+// Gerar CPF válido
+const cpf = generateCPF(); // "12345678901" (apenas dígitos)
+const cpfFormatted = generateCPF(true); // "123.456.789-01" (com máscara)
+
+// Gerar CNPJ numérico válido
+const cnpj = generateCNPJ(); // "12345678000199" (apenas dígitos)
+const cnpjFormatted = generateCNPJ(true); // "12.345.678/0001-99" (com máscara)
+
+// Gerar CNPJ alfanumérico válido (sem letras proibidas I, O, U, Q, F)
+const cnpjAlpha = generateCNPJAlpha(); // "AB12CD34EG5629" (com letras permitidas)
+const cnpjAlphaFormatted = generateCNPJAlpha(true); // "AB.12C.D34/EG56-29" (com máscara)
+
+// Todos os gerados são válidos
+console.log(validateCpfCnpj(cpf)); // true
+console.log(validateCpfCnpj(cnpj)); // true
+console.log(validateCpfCnpj(cnpjAlpha)); // true
+```
+
+### Fluxo completo: Gerar → Validar → Formatar → Anonimizar
+
+```ts
+import { generateCPF, validateCPF, formatCPF, anonymizeCPF } from "cpf-cnpj-alpha";
+
+// Gerar um novo CPF válido
+const newCPF = generateCPF();
+console.log(`CPF gerado: ${newCPF}`);
+
+// Sempre será válido
+if (validateCPF(newCPF)) {
+  const formatted = formatCPF(newCPF);
+  const anonymous = anonymizeCPF(formatted);
+  
+  console.log(`Formatado: ${formatted}`);
+  console.log(`Anônimo (seguro para logs): ${anonymous}`);
+}
+// Output: 
+// CPF gerado: 79610780881
+// Formatado: 796.107.808-81
+// Anônimo: 796.***.***-81
 ```

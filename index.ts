@@ -8,6 +8,9 @@ import {
   validateCPF,
   validateCNPJ,
   validateCpfCnpj,
+  generateCPF,
+  generateCNPJ,
+  generateCNPJAlpha,
 } from "./src";
 
 const printExample = (label: string, input: string, formatter: (value: string) => string): void => {
@@ -88,3 +91,24 @@ if (validateCpfCnpj(userCNPJ)) {
 } else {
   console.log(`CNPJ inválido: ${userCNPJ}`);
 }
+
+console.log("\n=== Exemplos de Geração ===");
+console.log("CPF gerado (sem formatação):", generateCPF());
+console.log("CPF gerado (com formatação):", generateCPF(true));
+console.log("CNPJ numérico gerado (sem formatação):", generateCNPJ());
+console.log("CNPJ numérico gerado (com formatação):", generateCNPJ(true));
+console.log("CNPJ alfanumérico gerado (sem formatação):", generateCNPJAlpha());
+console.log("CNPJ alfanumérico gerado (com formatação):", generateCNPJAlpha(true));
+
+console.log("\n=== Fluxo: Gerar → Formatar → Validar → Anonimizar ===");
+const generatedCPF = generateCPF();
+const validaGeneratedCPF = validateCPF(generatedCPF);
+const formatted_Gen = formatCPF(generatedCPF);
+const anonymous_Gen = anonymizeCPF(formatted_Gen);
+console.log(`CPF gerado: ${generatedCPF} | Válido? ${validaGeneratedCPF ? "✓" : "✗"} | Formatado: ${formatted_Gen} | Anônimo: ${anonymous_Gen}`);
+
+const generatedCNPJ = generateCNPJAlpha();
+const validGeneratedCNPJ = validateCNPJ(generatedCNPJ);
+const formatted_GenCNPJ = formatCNPJ(generatedCNPJ);
+const anonymous_GenCNPJ = anonymizeCNPJ(formatted_GenCNPJ);
+console.log(`CNPJ alfa gerado: ${generatedCNPJ} | Válido? ${validGeneratedCNPJ ? "✓" : "✗"} | Formatado: ${formatted_GenCNPJ} | Anônimo: ${anonymous_GenCNPJ}`);
