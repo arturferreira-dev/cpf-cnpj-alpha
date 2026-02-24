@@ -28,6 +28,10 @@
     "check": "bun test && bun run build",
     "prepublishOnly": "bun run check"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arturferreira-dev/cpf-cnpj-alpha.git"
+  },
   "devDependencies": {
     "@types/bun": "^1.3.0",
     "tsup": "^8.5.0",
@@ -36,8 +40,19 @@
   "keywords": [
     "cpf",
     "cnpj",
+    "cnpj alfanumérico",
+    "cpf cnpj",
     "formatter",
+    "formatador",
+    "validacao",
+    "validação",
+    "anonymize",
+    "anonimizacao",
+    "anonimização",
+    "documento brasileiro",
     "typescript",
+    "bun",
+    "npm",
     "brasil"
   ],
   "license": "MIT"

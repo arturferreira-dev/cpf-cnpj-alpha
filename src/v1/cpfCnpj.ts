@@ -1,7 +1,11 @@
 import { formatCPF } from "./cpf";
 import { formatCNPJ } from "./cnpj";
 
-export function formatCpfCnpj(value: string): string {
+export function formatCpfCnpj(value?: string | null): string {
+  if (value == null) {
+    return "";
+  }
+
   const digits = value.replace(/\D/g, "");
 
   if (/^\d{11}$/.test(digits)) {

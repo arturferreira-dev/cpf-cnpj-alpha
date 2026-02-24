@@ -32,20 +32,23 @@ import { validateCPF as validateCPFv1 } from "cpf-cnpj-alpha/v1";
 
 Cada função recebe `string` e retorna `string` (tipado via arquivos `.d.ts` gerados no build).
 
-### `formatCPF(value: string): string`
+### `formatCPF(value?: string | null): string`
+- `undefined` ou `null`: retorna string vazia (`""`).
 - Remove caracteres não numéricos.
 - Menos de 11 dígitos: retorna o valor original.
 - Mais de 11 dígitos: trunca para 11 e aplica máscara.
 - Máscara: `000.000.000-00`.
 
-### `formatCNPJ(value: string): string`
+### `formatCNPJ(value?: string | null): string`
+- `undefined` ou `null`: retorna string vazia (`""`).
 - Remove caracteres não alfanuméricos.
 - Normaliza letras para maiúsculas.
 - Menos de 14 caracteres alfanuméricos: retorna o valor original.
 - Mais de 14 caracteres alfanuméricos: trunca para 14 e aplica máscara.
 - Máscara: `00.000.000/0000-00`.
 
-### `formatCpfCnpj(value: string): string`
+### `formatCpfCnpj(value?: string | null): string`
+- `undefined` ou `null`: retorna string vazia (`""`).
 - 11 dígitos: formata como CPF.
 - 14 alfanuméricos: formata como CNPJ.
 - Acima de 14 alfanuméricos: trunca para 14 e formata com máscara CNPJ (a maior).
@@ -170,6 +173,21 @@ formatCNPJ("AB12CD34EF5601"); // AB.12C.D34/EF56-01
 // Auto-detectar
 formatCpfCnpj("12345678901"); // 123.456.789-01 (CPF)
 formatCpfCnpj("12345678000199"); // 12.345.678/0001-99 (CNPJ)
+```
+
+### Formatação com valor ausente (`undefined`/`null`)
+
+```ts
+import { formatCPF, formatCNPJ, formatCpfCnpj } from "cpf-cnpj-alpha";
+
+formatCPF(undefined); // ""
+formatCPF(null); // ""
+
+formatCNPJ(undefined); // ""
+formatCNPJ(null); // ""
+
+formatCpfCnpj(undefined); // ""
+formatCpfCnpj(null); // ""
 ```
 
 ### Anonimização

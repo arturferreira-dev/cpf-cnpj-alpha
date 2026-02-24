@@ -17,6 +17,11 @@ describe("v1 formatCPF", () => {
   test("trunca e formata CPF acima do permitido", () => {
     expect(formatCPF("123456789012")).toBe("123.456.789-01");
   });
+
+  test("retorna string vazia para undefined ou null", () => {
+    expect(formatCPF(undefined)).toBe("");
+    expect(formatCPF(null)).toBe("");
+  });
 });
 
 describe("v1 formatCNPJ", () => {
@@ -39,6 +44,11 @@ describe("v1 formatCNPJ", () => {
   test("trunca e formata CNPJ acima do permitido", () => {
     expect(formatCNPJ("AB12CD34EF560199")).toBe("AB.12C.D34/EF56-01");
   });
+
+  test("retorna string vazia para undefined ou null", () => {
+    expect(formatCNPJ(undefined)).toBe("");
+    expect(formatCNPJ(null)).toBe("");
+  });
 });
 
 describe("v1 formatCpfCnpj", () => {
@@ -60,5 +70,10 @@ describe("v1 formatCpfCnpj", () => {
 
   test("trunca e formata valor acima do permitido com máscara CNPJ", () => {
     expect(formatCpfCnpj("123456789012345")).toBe("12.345.678/9012-34");
+  });
+
+  test("retorna string vazia para undefined ou null", () => {
+    expect(formatCpfCnpj(undefined)).toBe("");
+    expect(formatCpfCnpj(null)).toBe("");
   });
 });

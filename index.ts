@@ -29,6 +29,14 @@ printExample("CNPJ acima do permitido (trunca e formata)", "AB12CD34EF560199", f
 printExample("CPF/CNPJ inválido (retorna original)", "1234567890", formatCpfCnpj);
 printExample("CPF/CNPJ acima do permitido (trunca e formata com máscara CNPJ)", "123456789012345", formatCpfCnpj);
 
+console.log("\n=== Formatação com valor ausente ===");
+console.log("formatCPF(undefined):", JSON.stringify(formatCPF(undefined)));
+console.log("formatCPF(null):", JSON.stringify(formatCPF(null)));
+console.log("formatCNPJ(undefined):", JSON.stringify(formatCNPJ(undefined)));
+console.log("formatCNPJ(null):", JSON.stringify(formatCNPJ(null)));
+console.log("formatCpfCnpj(undefined):", JSON.stringify(formatCpfCnpj(undefined)));
+console.log("formatCpfCnpj(null):", JSON.stringify(formatCpfCnpj(null)));
+
 console.log("\n=== Exemplos de Anonimização ===");
 printExample("anonymizeCPF", "12345678901", anonymizeCPF);
 printExample("anonymizeCPF (já mascarado)", "123.456.789-01", anonymizeCPF);

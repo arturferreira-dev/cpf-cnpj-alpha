@@ -1,4 +1,8 @@
-export function formatCNPJ(value: string): string {
+export function formatCNPJ(value?: string | null): string {
+  if (value == null) {
+    return "";
+  }
+
   const normalized = value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
 
   if (normalized.length < 14) {

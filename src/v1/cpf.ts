@@ -1,4 +1,8 @@
-export function formatCPF(value: string): string {
+export function formatCPF(value?: string | null): string {
+  if (value == null) {
+    return "";
+  }
+
   const digits = value.replace(/\D/g, "");
 
   if (digits.length < 11) {
