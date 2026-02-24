@@ -33,7 +33,11 @@ describe("v1 validateCNPJ", () => {
   });
 
   it("valida CNPJ alfanumérico válido", () => {
-    expect(validateCNPJ("AB12CD34EG5691")).toBe(true);
+    expect(validateCNPJ("PDRTZNY5000125")).toBe(true);
+  });
+
+  it("valida CNPJ alfanumérico válido com máscara", () => {
+    expect(validateCNPJ("PD.RTZ.NY5/0001-25")).toBe(true);
   });
 
   it("rejeita CNPJ alfanumérico com letra proibida I", () => {
@@ -79,7 +83,11 @@ describe("v1 validateCpfCnpj", () => {
   });
 
   it("detecta e valida CNPJ alfanumérico válido", () => {
-    expect(validateCpfCnpj("AB12CD34EG5691")).toBe(true);
+    expect(validateCpfCnpj("PD.RTZ.NY5/0001-25")).toBe(true);
+  });
+
+  it("detecta CNPJ alfanumérico válido mesmo quando contém 11 dígitos", () => {
+    expect(validateCpfCnpj("44.H7N.B50/0001-03")).toBe(true);
   });
 
   it("rejeita CPF inválido", () => {

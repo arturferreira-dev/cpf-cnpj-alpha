@@ -74,7 +74,7 @@ validateExample("CPF inválido", "12345678901", validateCPF);
 validateExample("CPF já mascarado", "111.444.777-35", validateCPF);
 validateExample("CNPJ numérico válido", "11222333000181", validateCNPJ);
 validateExample("CNPJ numérico inválido", "12345678000199", validateCNPJ);
-validateExample("CNPJ alfanumérico válido", "AB12CD34EG5691", validateCNPJ);
+validateExample("CNPJ alfanumérico válido", "PD.RTZ.NY5/0001-25", validateCNPJ);
 validateExample("CNPJ com letra proibida (I)", "AI12CD34EG5691", validateCNPJ);
 validateExample("CNPJ com letra proibida (O)", "AO12CD34EG5691", validateCNPJ);
 validateExample("CNPJ com letra proibida (U)", "AU12CD34EG5691", validateCNPJ);
@@ -91,7 +91,7 @@ if (validateCpfCnpj(userCPF)) {
   console.log(`CPF inválido: ${userCPF}`);
 }
 
-const userCNPJ = "AB12CD34EG5691";
+const userCNPJ = "PD.RTZ.NY5/0001-25";
 if (validateCpfCnpj(userCNPJ)) {
   const formatted = formatCpfCnpj(userCNPJ);
   const anonymous = anonymizeCpfCnpj(formatted);
@@ -120,3 +120,7 @@ const validGeneratedCNPJ = validateCNPJ(generatedCNPJ);
 const formatted_GenCNPJ = formatCNPJ(generatedCNPJ);
 const anonymous_GenCNPJ = anonymizeCNPJ(formatted_GenCNPJ);
 console.log(`CNPJ alfa gerado: ${generatedCNPJ} | Válido? ${validGeneratedCNPJ ? "✓" : "✗"} | Formatado: ${formatted_GenCNPJ} | Anônimo: ${anonymous_GenCNPJ}`);
+
+console.log("\n=== Exemplo Direto (CNPJ alfanumérico oficial) ===");
+const cnpjOficial = "PD.RTZ.NY5/0001-25";
+console.log(`validateCpfCnpj(${cnpjOficial}):`, validateCpfCnpj(cnpjOficial));

@@ -52,10 +52,11 @@ export function generateCNPJAlpha(formatted: boolean = false): string {
     return allowedChars[randomIdx];
   });
 
-  // Converte caracteres para valores numéricos (A=10, B=11, ..., Z=35, 0-9 mantêm valores)
+  // Converte caracteres pela regra da Receita: valor = charCode - 48
+  // (A=65 -> 17, ..., Z=90 -> 42, 0=48 -> 0, ..., 9=57 -> 9)
   const charValues = firstTwelve.map((char) => {
     const code = char.charCodeAt(0);
-    return code >= 65 ? code - 55 : code - 48; // A=65 → 10, 0=48 → 0
+    return code - 48;
   });
 
   // Calcula primeiro dígito verificador

@@ -97,7 +97,7 @@ Cada função recebe `string` e retorna `string` (tipado via arquivos `.d.ts` ge
 
 **Conversão de caracteres:**
 - Números: 0-9 mantêm seus valores
-- Letras: A=10, B=11, C=12, ..., Z=35 (conversão ASCII)
+- Conversão oficial Receita (ASCII): valor = `charCode - 48` (A=17, B=18, ..., Z=42)
 
 ### `validateCpfCnpj(value: string): boolean`
 - Detecta automaticamente se é CPF ou CNPJ e valida.
@@ -233,13 +233,13 @@ validateCNPJ("11.222.333/0001-81"); // true (com máscara)
 validateCNPJ("12345678000199"); // false (inválido)
 
 // CNPJ alfanumérico
-validateCNPJ("AB12CD34EG5691"); // true (válido, sem letras proibidas)
+validateCNPJ("PD.RTZ.NY5/0001-25"); // true (válido, sem letras proibidas)
 validateCNPJ("AI12CD34EG5691"); // false (contém letra proibida I)
 validateCNPJ("AF12CD34EG5691"); // false (contém letra proibida F)
 
 // Auto-detectar
 validateCpfCnpj("11144477735"); // true (CPF válido)
-validateCpfCnpj("AB12CD34EG5691"); // true (CNPJ alfanumérico válido)
+validateCpfCnpj("PD.RTZ.NY5/0001-25"); // true (CNPJ alfanumérico válido)
 validateCpfCnpj("123"); // false (tamanho inválido)
 ```
 

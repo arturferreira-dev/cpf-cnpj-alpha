@@ -10,17 +10,17 @@ import { validateCNPJ } from "./validateCNPJ";
 export function validateCpfCnpj(value: string): boolean {
   if (!value || typeof value !== "string") return false;
 
-  const digits = value.replace(/\D/g, "");
   const cleanValue = value.replace(/[.\/\-\s]/g, "").toUpperCase();
+  const digits = value.replace(/\D/g, "");
 
-  // 11 dígitos = CPF
-  if (digits.length === 11) {
-    return validateCPF(value);
-  }
-
-  // 14 caracteres alfanuméricos = CNPJ
+  // 14 caracteres alfanuméricos = CNPJ (prioridade para evitar conflito com CNPJ alfa)
   if (cleanValue.length === 14) {
     return validateCNPJ(value);
+  }
+
+  // 11 dígitos puros = CPF
+  if (digits.length === 11 && cleanValue.length === 11) {
+    return validateCPF(value);
   }
 
   return false;

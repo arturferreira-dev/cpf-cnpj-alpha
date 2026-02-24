@@ -5,7 +5,7 @@
  * - 12 caracteres alfanuméricos (raiz + ordem)
  * - 2 dígitos verificadores numéricos
  * - Letras proibidas: I, O, U, Q, F (evitar confusão)
- * - Conversão ASCII: A=10, B=11, ... Z=35
+ * - Conversão ASCII da Receita: valor = charCode - 48 (A=17, B=18, ... Z=42)
  * 
  * Estrutura CNPJ Numérico (compatibilidade):
  * - 14 dígitos numéricos
@@ -71,7 +71,8 @@ function validateNumericCNPJ(digits: string): boolean {
 
 /**
  * Valida CNPJ alfanumérico (com letras A-Z)
- * Converte letras para valores ASCII: A=10, B=11, ..., Z=35
+ * Converte cada caractere usando a regra da Receita: valor = charCode - 48
+ * (A=65 -> 17, B=66 -> 18, ..., Z=90 -> 42, 0=48 -> 0, ..., 9=57 -> 9)
  */
 function validateAlphanumericCNPJ(value: string): boolean {
   const chars = value.substring(0, 12);
@@ -80,9 +81,7 @@ function validateAlphanumericCNPJ(value: string): boolean {
   // Converte caracteres para valores numéricos
   const charValues = chars.split("").map((char) => {
     const code = char.charCodeAt(0);
-    // A=65 → 10, B=66 → 11, ..., Z=90 → 35
-    // 0=48 → 0, 1=49 → 1, ..., 9=57 → 9
-    return code >= 65 ? code - 55 : code - 48;
+    return code - 48;
   });
 
   // Calcula primeiro dígito verificador
