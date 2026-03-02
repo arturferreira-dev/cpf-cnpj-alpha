@@ -1,23 +1,60 @@
-# cpf-cnpj-alpha — formatar, validar, anonimizar e remover máscara de CPF/CNPJ
+# cpf-cnpj-alpha
 
+> Format, validate, generate, anonymize and unmask CPF & CNPJ — including **alphanumeric CNPJ** — in TypeScript.
+
+[![npm version](https://img.shields.io/npm/v/cpf-cnpj-alpha.svg)](https://www.npmjs.com/package/cpf-cnpj-alpha)
+[![npm downloads](https://img.shields.io/npm/dm/cpf-cnpj-alpha.svg)](https://www.npmjs.com/package/cpf-cnpj-alpha)
 [![Build](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml/badge.svg)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/arturferreira-dev/702ad09c9cf7af2b12550ae635d0100a/raw/coverage-badge.json)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/coverage.yml)
-![Lang](https://img.shields.io/badge/lang-typescript-blue?logo=typescript)
+![TypeScript](https://img.shields.io/badge/lang-typescript-blue?logo=typescript)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Biblioteca TypeScript para CPF e CNPJ (incluindo CNPJ alfanumérico): formatação, validação, geração, anonimização e unmask.
 
-## Recursos
+## Features / Recursos
 
-- Formatar CPF, CNPJ numérico e CNPJ alfanumérico.
-- Validar CPF/CNPJ com ou sem máscara.
-- Gerar CPF, CNPJ numérico e CNPJ alfanumérico válidos.
-- Anonimizar documentos para logs e UI.
-- Remover máscara com `unmaskCPF` e `unmaskCNPJ`.
+| Feature | CPF | CNPJ numérico | CNPJ alfanumérico |
+|---|:---:|:---:|:---:|
+| Format / Formatar | ✅ | ✅ | ✅ |
+| Validate / Validar | ✅ | ✅ | ✅ |
+| Generate / Gerar | ✅ | ✅ | ✅ |
+| Anonymize / Anonimizar | ✅ | ✅ | ✅ |
+| Unmask / Remover máscara | ✅ | ✅ | ✅ |
 
-## Instalação
+- **Zero dependencies** — sem dependências externas
+- **Tree-shakeable** — ESM + CJS dual package
+- **100% test coverage** — cobertura total de testes
+- **TypeScript first** — tipos incluídos (.d.ts)
+
+## Instalação / Install
 
 ```bash
 npm install cpf-cnpj-alpha
+# or
+yarn add cpf-cnpj-alpha
+# or
+pnpm add cpf-cnpj-alpha
+# or
+bun add cpf-cnpj-alpha
+```
+
+## Quick Start
+
+```ts
+import { formatCPF, validateCPF, anonymizeCPF, generateCPF } from "cpf-cnpj-alpha";
+
+formatCPF("11144477735");          // "111.444.777-35"
+validateCPF("111.444.777-35");     // true
+anonymizeCPF("11144477735");       // "111.***.***-35"
+generateCPF(true);                 // "XXX.XXX.XXX-XX" (random valid CPF)
+```
+
+```ts
+import { formatCNPJ, validateCNPJ, generateCNPJAlpha } from "cpf-cnpj-alpha";
+
+formatCNPJ("AB12CD34EF5601");      // "AB.12C.D34/EF56-01"
+validateCNPJ("PD.RTZ.NY5/0001-25"); // true
+generateCNPJAlpha(true);            // "XX.XXX.XXX/XXXX-XX" (random valid alphanumeric CNPJ)
 ```
 
 ## Exports
@@ -352,3 +389,19 @@ if (validateCPF(newCPF)) {
 // Formatado: 796.107.808-81
 // Anônimo: 796.***.***-81
 ```
+
+## Compatibility / Compatibilidade
+
+| Runtime | Version |
+|---|---|
+| Node.js | >= 18 |
+| Bun | >= 1.0 |
+| Deno | ✅ (via npm specifier) |
+| Browsers | ✅ (via bundler) |
+
+- **ESM** and **CJS** dual output
+- Full **TypeScript** type declarations included
+
+## License
+
+[MIT](LICENSE)

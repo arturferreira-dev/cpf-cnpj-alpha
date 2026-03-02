@@ -1,7 +1,7 @@
 {
   "name": "cpf-cnpj-alpha",
   "version": "1.3.0",
-  "description": "Formatadores de CPF/CNPJ em TypeScript com suporte a CNPJ alfanumérico.",
+  "description": "Format, validate, generate, anonymize and unmask CPF and CNPJ (including alphanumeric CNPJ) in TypeScript. Formatar, validar, gerar, anonimizar e remover máscara de CPF/CNPJ alfanumérico.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -28,6 +28,11 @@
     "check": "bun test && bun run build",
     "prepublishOnly": "bun run check"
   },
+  "author": "Artur Ferreira <arturferreira.dev>",
+  "homepage": "https://github.com/arturferreira-dev/cpf-cnpj-alpha#readme",
+  "bugs": {
+    "url": "https://github.com/arturferreira-dev/cpf-cnpj-alpha/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/arturferreira-dev/cpf-cnpj-alpha.git"
@@ -40,20 +45,40 @@
   "keywords": [
     "cpf",
     "cnpj",
-    "cnpj alfanumérico",
+    "cpf-cnpj",
     "cpf cnpj",
+    "cnpj alfanumerico",
+    "cnpj alphanumeric",
+    "format cpf",
+    "format cnpj",
+    "formatar cpf",
+    "formatar cnpj",
     "formatter",
     "formatador",
+    "validate cpf",
+    "validate cnpj",
+    "validar cpf",
+    "validar cnpj",
     "validacao",
-    "validação",
+    "validation",
+    "generate cpf",
+    "generate cnpj",
+    "gerar cpf",
+    "gerar cnpj",
     "anonymize",
-    "anonimizacao",
-    "anonimização",
-    "documento brasileiro",
+    "anonimizar",
+    "mask",
+    "unmask",
+    "mascara",
+    "documento",
+    "receita federal",
+    "brazil",
+    "brasil",
     "typescript",
     "bun",
-    "npm",
-    "brasil"
+    "node",
+    "esm",
+    "cjs"
   ],
   "license": "MIT"
 }
