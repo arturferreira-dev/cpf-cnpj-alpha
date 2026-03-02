@@ -15,4 +15,26 @@ jobs:
         run: bun install
 
       - name: Run tests with coverage
-        run: bun test --coverage --coverage-reporter=lcov
+        run: |
+          bun test --coverage 2>&1 | tee /tmp/coverage-output.txt
+          bun test --coverage --coverage-reporter=lcov
+
+      - name: Extract coverage percentage
+        id: cov
+        run: |
+          COVERAGE=$(grep 'All files' /tmp/coverage-output.txt | awk -F'|' '{gsub(/ /, "", $3); print $3}')
+          echo "percentage=${COVERAGE}" >> $GITHUB_OUTPUT
+          echo "Coverage: ${COVERAGE}%"
+
+      - name: Update coverage badge
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 702ad09c9cf7af2b12550ae635d0100a
+          filename: coverage-badge.json
+          label: coverage
+          message: ${{ steps.cov.outputs.percentage }}%
+          valColorRange: ${{ steps.cov.outputs.percentage }}
+          minColorRange: 0
+          maxColorRange: 100
