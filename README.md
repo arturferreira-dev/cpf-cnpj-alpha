@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml/badge.svg)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/arturferreira-dev/702ad09c9cf7af2b12550ae635d0100a/raw/coverage-badge.json)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/coverage.yml)
-
+![Lang](https://img.shields.io/badge/lang-typescript-blue?logo=typescript)
 
 Biblioteca TypeScript para CPF e CNPJ (incluindo CNPJ alfanumérico): formatação, validação, geração, anonimização e unmask.
 
