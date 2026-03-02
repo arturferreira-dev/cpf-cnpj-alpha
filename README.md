@@ -1,6 +1,18 @@
-# cpf-cnpj-alpha
+# cpf-cnpj-alpha — formatar, validar, anonimizar e remover máscara de CPF/CNPJ
 
-Biblioteca TypeScript para formatação de CPF, CNPJ e CPF/CNPJ, com suporte a CNPJ alfanumérico.
+[![Build](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml/badge.svg)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml)
+[![Coverage](https://codecov.io/gh/arturferreira-dev/cpf-cnpj-alpha/branch/main/graph/badge.svg)](https://codecov.io/gh/arturferreira-dev/cpf-cnpj-alpha)
+
+
+Biblioteca TypeScript para CPF e CNPJ (incluindo CNPJ alfanumérico): formatação, validação, geração, anonimização e unmask.
+
+## Recursos
+
+- Formatar CPF, CNPJ numérico e CNPJ alfanumérico.
+- Validar CPF/CNPJ com ou sem máscara.
+- Gerar CPF, CNPJ numérico e CNPJ alfanumérico válidos.
+- Anonimizar documentos para logs e UI.
+- Remover máscara com `unmaskCPF` e `unmaskCNPJ`.
 
 ## Instalação
 
@@ -15,6 +27,8 @@ import {
   formatCPF, 
   formatCNPJ, 
   formatCpfCnpj,
+  unmaskCPF,
+  unmaskCNPJ,
   anonymizeCPF,
   anonymizeCNPJ,
   anonymizeCpfCnpj,
@@ -53,6 +67,19 @@ Cada função recebe `string` e retorna `string` (tipado via arquivos `.d.ts` ge
 - 14 alfanuméricos: formata como CNPJ.
 - Acima de 14 alfanuméricos: trunca para 14 e formata com máscara CNPJ (a maior).
 - Outros casos: retorna o valor original.
+
+### `unmaskCPF(value?: string | null): string`
+- `undefined` ou `null`: retorna string vazia (`""`).
+- Remove caracteres não numéricos.
+- Menos de 11 dígitos: retorna o valor original.
+- Mais de 11 dígitos: trunca para 11.
+
+### `unmaskCNPJ(value?: string | null): string`
+- `undefined` ou `null`: retorna string vazia (`""`).
+- Remove caracteres não alfanuméricos.
+- Normaliza letras para maiúsculas.
+- Menos de 14 caracteres alfanuméricos: retorna o valor original.
+- Mais de 14 caracteres alfanuméricos: trunca para 14.
 
 ### `anonymizeCPF(value: string): string`
 - Remove caracteres não numéricos.
@@ -153,6 +180,14 @@ const formatted = formatCNPJ("ab12cd34ef5601"); // AB.12C.D34/EF56-01
 const raw = formatted.replace(/[^A-Z0-9]/g, ""); // AB12CD34EF5601
 ```
 
+Ou usando a API dedicada de unmask:
+
+```ts
+import { unmaskCNPJ } from "cpf-cnpj-alpha";
+
+unmaskCNPJ("AB.12C.D34/EF56-01"); // AB12CD34EF5601
+```
+
 ## Exemplos de uso
 
 ### Formatação
@@ -188,6 +223,18 @@ formatCNPJ(null); // ""
 
 formatCpfCnpj(undefined); // ""
 formatCpfCnpj(null); // ""
+```
+
+### Remover máscara (Unmask)
+
+```ts
+import { unmaskCPF, unmaskCNPJ } from "cpf-cnpj-alpha";
+
+unmaskCPF("123.456.789-01"); // 12345678901
+unmaskCPF("12345678901"); // 12345678901
+
+unmaskCNPJ("12.345.678/0001-99"); // 12345678000199
+unmaskCNPJ("AB.12C.D34/EF56-01"); // AB12CD34EF5601
 ```
 
 ### Anonimização

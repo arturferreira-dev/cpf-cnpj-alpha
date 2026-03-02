@@ -2,6 +2,8 @@ import {
   formatCPF,
   formatCNPJ,
   formatCpfCnpj,
+  unmaskCPF,
+  unmaskCNPJ,
   anonymizeCPF,
   anonymizeCNPJ,
   anonymizeCpfCnpj,
@@ -44,6 +46,13 @@ printExample("anonymizeCNPJ (numérico)", "12345678000199", anonymizeCNPJ);
 printExample("anonymizeCNPJ (alfanumérico)", "AB12CD34EG5691", anonymizeCNPJ);
 printExample("anonymizeCpfCnpj (CPF)", "12345678901", anonymizeCpfCnpj);
 printExample("anonymizeCpfCnpj (CNPJ)", "AB12CD34EG5691", anonymizeCpfCnpj);
+
+console.log("\n=== Exemplos de Remoção de Máscara (Unmask) ===");
+printExample("unmaskCPF (mascarado)", "123.456.789-01", unmaskCPF);
+printExample("unmaskCPF (sem máscara)", "12345678901", unmaskCPF);
+printExample("unmaskCNPJ (numérico mascarado)", "12.345.678/0001-99", unmaskCNPJ);
+printExample("unmaskCNPJ (alfanumérico mascarado)", "AB.12C.D34/EG56-91", unmaskCNPJ);
+printExample("unmaskCNPJ (sem máscara)", "AB12CD34EG5691", unmaskCNPJ);
 
 console.log("\n=== Fluxo Completo: Formato → Anonimização ===");
 const cpfInput = "12345678901";
