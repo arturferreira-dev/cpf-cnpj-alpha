@@ -3,7 +3,6 @@
 > Format, validate, generate, anonymize and unmask CPF & CNPJ — including **alphanumeric CNPJ** — in TypeScript.
 
 [![npm version](https://img.shields.io/npm/v/cpf-cnpj-alpha.svg)](https://www.npmjs.com/package/cpf-cnpj-alpha)
-[![npm downloads](https://img.shields.io/npm/dm/cpf-cnpj-alpha.svg)](https://www.npmjs.com/package/cpf-cnpj-alpha)
 [![Build](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml/badge.svg)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/build.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/arturferreira-dev/702ad09c9cf7af2b12550ae635d0100a/raw/coverage-badge.json)](https://github.com/arturferreira-dev/cpf-cnpj-alpha/actions/workflows/coverage.yml)
 ![TypeScript](https://img.shields.io/badge/lang-typescript-blue?logo=typescript)
